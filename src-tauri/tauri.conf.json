@@ -12,7 +12,34 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true
+      "all": true,
+      "window": {
+        "all": false,
+        "center": true,
+        "close": true,
+        "create": false,
+        "hide": true,
+        "maximize": false,
+        "minimize": true,
+        "print": false,
+        "requestUserAttention": false,
+        "setAlwaysOnTop": false,
+        "setDecorations": false,
+        "setFocus": false,
+        "setFullscreen": false,
+        "setIcon": false,
+        "setMaxSize": false,
+        "setMinSize": false,
+        "setPosition": true,
+        "setResizable": false,
+        "setSize": false,
+        "setSkipTaskbar": false,
+        "setTitle": false,
+        "show": true,
+        "startDragging": true,
+        "unmaximize": false,
+        "unminimize": true
+      }
     },
     "bundle": {
       "active": true,

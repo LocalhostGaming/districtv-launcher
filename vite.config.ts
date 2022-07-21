@@ -3,8 +3,17 @@ import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
 
 export const aliases = {
-  '@': resolve(__dirname, './src'),
   '@assets': resolve(__dirname, './src/assets'),
+  '@components': resolve(__dirname, './src/components'),
+  '@constants': resolve(__dirname, './src/constants'),
+  '@helpers': resolve(__dirname, './src/helpers'),
+  '@hooks': resolve(__dirname, './src/hooks'),
+  '@layout': resolve(__dirname, './src/layout'),
+  '@service': resolve(__dirname, './src/service'),
+  '@styles': resolve(__dirname, './src/styles'),
+  '@types': resolve(__dirname, './src/types'),
+  '@views': resolve(__dirname, './src/views'),
+  '@api': resolve(__dirname, './src/api'),
 };
 
 // https://vitejs.dev/config/
