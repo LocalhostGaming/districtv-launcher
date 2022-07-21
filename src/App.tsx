@@ -3,8 +3,8 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-3xl text-dark-400 font-bold underline">
+    <div data-tauri-drag-region className="App">
+      <h1 className="text-3xl text-light-100 font-bold underline">
         Hello World
       </h1>
       <img src={ReactLogo} alt="" />
