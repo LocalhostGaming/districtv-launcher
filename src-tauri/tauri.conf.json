@@ -25,7 +25,7 @@
         "requestUserAttention": false,
         "setAlwaysOnTop": false,
         "setDecorations": false,
-        "setFocus": false,
+        "setFocus": true,
         "setFullscreen": false,
         "setIcon": false,
         "setMaxSize": false,
@@ -79,6 +79,10 @@
     },
     "updater": {
       "active": false
+    },
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
     },
     "windows": [
       {

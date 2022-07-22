@@ -1,35 +1,41 @@
 import { appWindow } from '@tauri-apps/api/window';
+import { exit } from '@tauri-apps/api/process';
 import '@styles/app.css';
 
 function App() {
   const handleOnMinimize = async () => {
     await appWindow.minimize();
   };
+
   const handleOnClose = async () => {
     await appWindow.close();
+    await exit();
   };
 
+  // const handleOnSystemTray = async () => {
+  //   appWindow.hide();
+  // };
+
   return (
-    <div data-tauri-drag-region className="app">
-      <button
-        type="button"
-        className="m-2 py-2 px-3 bg-dark-400 hover:bg-dark-300 transition-colors text-white rounded-lg"
-        onClick={() => handleOnMinimize()}
-      >
-        minimize
-      </button>
-
-      <button
-        type="button"
-        className="m-2 py-2 px-3 bg-dark-400 hover:bg-dark-300 transition-colors text-white rounded-lg"
-        onClick={() => handleOnClose()}
-      >
-        close
-      </button>
-
-      <h1 className="text-3xl text-light-100 font-bold underline m-2">
-        Hello World
-      </h1>
+    <div className="app">
+      <div data-tauri-drag-region className="flex justify-end w-full p-2">
+        <div className="bg-dark-700 flex flex-wrap p-1 rounded-lg gap-1">
+          <button
+            type="button"
+            className="h-[30px] w-[32px] hover:bg-dark-600 text-white rounded-lg"
+            onClick={() => handleOnMinimize()}
+          >
+            _
+          </button>
+          <button
+            type="button"
+            className="h-[30px] w-[32px] hover:bg-dark-600 text-white rounded-lg"
+            onClick={() => handleOnClose()}
+          >
+            x
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
