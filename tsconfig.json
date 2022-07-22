@@ -19,11 +19,27 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@assets": ["./src/asstes/*"]
+      "@assets": ["./src/assets/*"],
+      "@components": ["./src/components/*"],
+      "@constants": ["./src/constants/*"],
+      "@helpers": ["./src/helpers/*"],
+      "@hooks": ["./src/hooks/*"],
+      "@layout": ["./src/layout/*"],
+      "@service": ["./src/service/*"],
+      "@styles": ["./src/styles/*"],
+      "@types": ["./src/types/*"],
+      "@views": ["./src/views/*"],
+      "@api": ["./src/api/*"]
     }
   },
 
-  "include": ["vite-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
+  "include": [
+    "vite.config.ts",
+    "./src/**/*.ts",
+    "./src/**/*.css",
+    "./src/**/*.tsx",
+    "custom.d.ts"
+  ],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
