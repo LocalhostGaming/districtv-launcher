@@ -1,8 +1,12 @@
 import { appWindow } from '@tauri-apps/api/window';
 import { exit } from '@tauri-apps/api/process';
+import { Link } from 'wouter';
+import { ROUTE } from '@constants/routes';
+import { RouterView } from './router';
+
 import '@styles/app.css';
 
-function App() {
+const App = () => {
   const handleOnMinimize = async () => {
     await appWindow.minimize();
   };
@@ -36,8 +40,19 @@ function App() {
           </button>
         </div>
       </div>
+
+      <div className="flex gap-3">
+        <Link to={ROUTE.AUTH.LOGIN} className="active">
+          login
+        </Link>
+        <Link href={ROUTE.AUTH.REGISTER} className="active">
+          register
+        </Link>
+      </div>
+
+      <RouterView />
     </div>
   );
-}
+};
 
 export default App;

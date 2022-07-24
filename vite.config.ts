@@ -8,12 +8,13 @@ export const aliases = {
   '@constants': resolve(__dirname, './src/constants'),
   '@helpers': resolve(__dirname, './src/helpers'),
   '@hooks': resolve(__dirname, './src/hooks'),
-  '@layout': resolve(__dirname, './src/layout'),
+  '@layouts': resolve(__dirname, './src/layouts'),
   '@service': resolve(__dirname, './src/service'),
   '@styles': resolve(__dirname, './src/styles'),
   '@types': resolve(__dirname, './src/types'),
   '@views': resolve(__dirname, './src/views'),
   '@api': resolve(__dirname, './src/api'),
+  '@router': resolve(__dirname, './src/router'),
 };
 
 // https://vitejs.dev/config/
