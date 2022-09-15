@@ -1,3 +1,4 @@
+import { ROUTE } from '@constants/routes';
 import { lazily } from 'react-lazily';
 import { RouteConfig } from './types/IRouter';
 
@@ -7,16 +8,16 @@ const { RegisterPage } = lazily(() => import('../views/auth/register'));
 export const routes: RouteConfig = [
   {
     name: 'Login',
-    path: '/auth',
+    path: ROUTE.AUTH.PATH,
     children: [
       {
         name: 'Login',
-        path: '/login',
+        path: ROUTE.AUTH.LOGIN.PATH,
         component: LoginPage,
       },
       {
         name: 'Register',
-        path: '/register',
+        path: ROUTE.AUTH.REGISTER.PATH,
         component: RegisterPage,
       },
     ],

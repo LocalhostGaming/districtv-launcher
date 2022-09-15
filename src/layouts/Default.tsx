@@ -5,12 +5,7 @@ interface Props {
 }
 
 const DefaultLayout = ({ children }: Props) => {
-  return (
-    <main>
-      Default layout
-      {children}
-    </main>
-  );
+  return <main>{children}</main>;
 };
 
 export default DefaultLayout;

@@ -1,12 +1,17 @@
+import { useEffect } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
 import { exit } from '@tauri-apps/api/process';
-import { Link } from 'wouter';
+import { useLocation } from 'wouter';
 import { ROUTE } from '@constants/routes';
+import { Group, ActionIcon } from '@mantine/core';
+import { IconWindowMinimize, IconX } from '@tabler/icons';
 import { RouterView } from './router';
 
 import '@styles/app.css';
 
 const App = () => {
+  const [location, setLocation] = useLocation();
+
   const handleOnMinimize = async () => {
     await appWindow.minimize();
   };
@@ -20,34 +25,30 @@ const App = () => {
   //   appWindow.hide();
   // };
 
+  useEffect(() => {
+    if (location === '/') setLocation(ROUTE.AUTH.LOGIN.FULLPATH);
+  }, []);
+
   return (
     <div className="app">
       <div data-tauri-drag-region className="flex justify-end w-full p-2">
-        <div className="bg-dark-700 flex flex-wrap p-1 rounded-lg gap-1">
-          <button
-            type="button"
-            className="h-[30px] w-[32px] hover:bg-dark-600 text-white rounded-lg"
+        <Group className="bg-zinc-800 p-1 rounded-lg" spacing="xs">
+          {/* Minimize Button */}
+          <ActionIcon
+            className="hover:bg-zinc-700"
             onClick={() => handleOnMinimize()}
           >
-            _
-          </button>
-          <button
-            type="button"
-            className="h-[30px] w-[32px] hover:bg-dark-600 text-white rounded-lg"
+            <IconWindowMinimize size={16} />
+          </ActionIcon>
+
+          {/* Close Button */}
+          <ActionIcon
+            className="hover:bg-zinc-700"
             onClick={() => handleOnClose()}
           >
-            x
-          </button>
-        </div>
-      </div>
-
-      <div className="flex gap-3">
-        <Link to={ROUTE.AUTH.LOGIN} className="active">
-          login
-        </Link>
-        <Link href={ROUTE.AUTH.REGISTER} className="active">
-          register
-        </Link>
+            <IconX size={17} />
+          </ActionIcon>
+        </Group>
       </div>
 
       <RouterView />

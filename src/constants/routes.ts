@@ -1,6 +1,13 @@
 export const ROUTE = {
   AUTH: {
-    LOGIN: '/auth/login',
-    REGISTER: '/auth/register',
+    PATH: '/auth',
+    LOGIN: {
+      PATH: '/login',
+      FULLPATH: '/auth/login',
+    },
+    REGISTER: {
+      PATH: '/register',
+      FULLPATH: '/auth/register',
+    },
   },
 };
