@@ -9,4 +9,6 @@
 body {
   background: transparent !important;
   user-select: none;
+  width: 850px;
+  height: 647px;
 }

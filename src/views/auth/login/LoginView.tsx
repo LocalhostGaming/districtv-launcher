@@ -1,5 +1,12 @@
 import { ROUTE } from '@constants/routes';
-import { Input, PasswordInput, Button, Text, Title } from '@mantine/core';
+import {
+  Input,
+  PasswordInput,
+  Button,
+  Text,
+  Title,
+  Container,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconArrowRight, IconBrandDiscord } from '@tabler/icons';
 import { useLocation } from 'wouter';
@@ -15,7 +22,7 @@ const LoginView = () => {
   });
 
   return (
-    <div className="p-4 h-full flex place-content-center">
+    <Container>
       <div className="w-[340px]  text-center">
         <Title className="mb-4" order={5}>
           SIGN IN
@@ -62,7 +69,7 @@ const LoginView = () => {
           </Button>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
