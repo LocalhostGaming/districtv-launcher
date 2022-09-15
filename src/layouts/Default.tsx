@@ -6,10 +6,7 @@ interface Props {
 
 const DefaultLayout = ({ children }: Props) => {
   return (
-    <main>
-      Default layout
-      {children}
-    </main>
+    <main className="flex justify-center items-center h-full">{children}</main>
   );
 };
 

@@ -1,7 +1,11 @@
 .app {
-  @apply bg-dark-600 rounded-xl;
-  width: 850px;
-  height: 647px;
-  box-shadow: inset 0px 0px 0px 4px #1d222b;
-  padding: 4px;
+  @apply rounded-xl;
+  box-shadow: inset 0px 0px 0px 4px #25262b;
+  background: #2c2e33;
+  height: 100vh;
+  width: 100vw;
+}
+
+.app .light-shadow {
+  box-shadow: inset 0px 0px 0px 4px #c0c2c9;
 }
