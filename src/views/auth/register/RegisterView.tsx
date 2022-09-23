@@ -22,7 +22,10 @@ const RegisterView = () => {
         </Title>
       )}
 
-      <DiscordLoading onBack={() => setLocation(ROUTE.AUTH.LOGIN.PATH)} />
+      <DiscordLoading
+        show={isDiscord}
+        onBack={() => setLocation(ROUTE.AUTH.LOGIN.PATH)}
+      />
       <RegisterForm show={!isDiscord} onCancel={handleOnCancel} />
     </div>
   );
