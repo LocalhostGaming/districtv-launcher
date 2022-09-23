@@ -1,7 +1,12 @@
+import { Container } from '@mantine/core';
 import RegisterView from './RegisterView';
 
 const RegisterContainer = () => {
-  return <RegisterView />;
+  return (
+    <Container>
+      <RegisterView />
+    </Container>
+  );
 };
 
 export default RegisterContainer;

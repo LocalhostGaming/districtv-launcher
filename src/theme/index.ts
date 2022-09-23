@@ -17,10 +17,14 @@ const theme: MantineThemeOverride = {
       '#663300',
       '#331A00',
     ],
+    discord: ['#7289DA'],
   },
   primaryColor: 'orange',
   primaryShade: 5,
   components: {
+    InputWrapper: {
+      classNames: { label: 'mb-1 ml-0.5' },
+    },
     Input: {
       defaultProps: {
         size: 'lg',

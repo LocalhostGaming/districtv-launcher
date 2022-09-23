@@ -1,15 +1,31 @@
 import { ROUTE } from '@constants/routes';
-import { Button } from '@mantine/core';
+import { Button, Title } from '@mantine/core';
 import { IconArrowLeft } from '@tabler/icons';
+import { useMemo, useState } from 'react';
 import { useLocation } from 'wouter';
+import { RegisterForm } from './components/RegisterForm';
 
 const RegisterView = () => {
   const [, setLocation] = useLocation();
+  const [registerState] = useState<'discord' | 'register'>('register');
+  const isDiscord = useMemo(() => registerState === 'discord', [registerState]);
+
+  const handleOnCancel = () => {
+    setLocation(ROUTE.AUTH.LOGIN.PATH);
+  };
 
   return (
-    <div className="p-4 h-full flex place-content-center">
-      <div className="w-[340px]  text-center">
-        <div className="mt-20">
+    <div className="w-[340px]">
+      {!isDiscord && (
+        <Title className="mb-4 text-center" order={5}>
+          SIGN UP
+        </Title>
+      )}
+
+      <RegisterForm show={!isDiscord} onCancel={handleOnCancel} />
+
+      {isDiscord && (
+        <div className="mt-20 flex place-content-center">
           <Button
             size="sm"
             color="dark"
@@ -22,7 +38,7 @@ const RegisterView = () => {
             Back to Login
           </Button>
         </div>
-      </div>
+      )}
     </div>
   );
 };
