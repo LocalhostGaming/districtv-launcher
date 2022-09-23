@@ -6,7 +6,7 @@ interface Props {
   onBack?: () => void;
 }
 
-export const DiscordLoading = ({ show, onBack }: Props) => {
+const DiscordLoading = ({ show, onBack }: Props) => {
   if (show === false) return null;
 
   const { colors } = useMantineTheme();
@@ -63,3 +63,5 @@ export const DiscordLoading = ({ show, onBack }: Props) => {
     </div>
   );
 };
+
+export default DiscordLoading;

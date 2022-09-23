@@ -1,7 +1,7 @@
-import { ROUTE } from '@constants/routes';
-import { Title } from '@mantine/core';
 import { useMemo, useState } from 'react';
 import { useLocation } from 'wouter';
+import { ROUTE } from '@constants/routes';
+import { Title } from '@mantine/core';
 import { DiscordLoading } from './components/DiscordLoading';
 import { RegisterForm } from './components/RegisterForm';
 
