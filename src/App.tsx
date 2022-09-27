@@ -1,6 +1,4 @@
 import { useEffect } from 'react';
-import { appWindow } from '@tauri-apps/api/window';
-import { exit } from '@tauri-apps/api/process';
 import { useLocation } from 'wouter';
 import { ROUTE } from '@constants/routes';
 import { Group, ActionIcon } from '@mantine/core';
@@ -13,12 +11,12 @@ const App = () => {
   const [location, setLocation] = useLocation();
 
   const handleOnMinimize = async () => {
-    await appWindow.minimize();
+    // await appWindow.minimize();
   };
 
   const handleOnClose = async () => {
-    await appWindow.close();
-    await exit();
+    // await appWindow.close();
+    // await exit();
   };
 
   // const handleOnSystemTray = async () => {
