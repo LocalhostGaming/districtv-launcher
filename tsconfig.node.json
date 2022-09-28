@@ -3,7 +3,11 @@
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "outDir": "dist/electron",
+    "typeRoots": ["node_modules/@types"]
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "electron/**/*"]
 }

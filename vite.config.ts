@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
+import electron from 'vite-plugin-electron';
 
 export const aliases = {
   '@assets': resolve(__dirname, './src/assets'),
@@ -19,7 +20,15 @@ export const aliases = {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    electron({
+      main: {
+        entry: 'electron/main.ts',
+      },
+    }),
+  ],
+  base: './',
   resolve: {
     alias: aliases,
   },

@@ -29,10 +29,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <div
-        data-tauri-drag-region
-        className="flex justify-end w-full p-2 absolute"
-      >
+      <div className="flex justify-end w-full p-2 absolute draggable">
         <Group className="bg-zinc-800 p-1 rounded-lg" spacing="xs">
           {/* Minimize Button */}
           <ActionIcon
