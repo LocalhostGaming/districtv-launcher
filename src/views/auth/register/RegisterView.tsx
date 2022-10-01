@@ -1,18 +1,18 @@
 import { useMemo, useState } from 'react';
-import { useLocation } from 'wouter';
+import { useNavigate } from 'react-router-dom';
+
 import { ROUTE } from '@constants/routes';
 import { Title } from '@mantine/core';
+
 import { DiscordLoading } from './components/DiscordLoading';
 import { RegisterForm } from './components/RegisterForm';
 
 const RegisterView = () => {
-  const [, setLocation] = useLocation();
+  const navigate = useNavigate();
   const [registerState] = useState<'discord' | 'register'>('discord');
   const isDiscord = useMemo(() => registerState === 'discord', [registerState]);
 
-  const handleOnCancel = () => {
-    setLocation(ROUTE.AUTH.LOGIN.PATH);
-  };
+  const handleOnCancel = () => {};
 
   return (
     <div className="w-[340px]">
@@ -24,7 +24,7 @@ const RegisterView = () => {
 
       <DiscordLoading
         show={isDiscord}
-        onBack={() => setLocation(ROUTE.AUTH.LOGIN.PATH)}
+        onBack={() => navigate(ROUTE.AUTH.LOGIN.FULLPATH)}
       />
       <RegisterForm show={!isDiscord} onCancel={handleOnCancel} />
     </div>

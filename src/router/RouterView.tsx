@@ -1,23 +1,10 @@
-import { Switch } from 'wouter';
-import { Suspense } from 'react';
-import { LoadingOverlay } from '@mantine/core';
-import { routes } from './config';
-import RoutedLayout from './components/LayoutedRoute';
+import { useRoutes } from 'react-router-dom';
+import { config } from './config';
 
 const RouterView = () => {
-  return (
-    <Suspense
-      fallback={
-        <LoadingOverlay className="rounded-xl" visible overlayBlur={2} />
-      }
-    >
-      <Switch>
-        {routes.map((route) => (
-          <RoutedLayout route={route} key={route.path} />
-        ))}
-      </Switch>
-    </Suspense>
-  );
+  const routes = useRoutes(config);
+
+  return <div className="h-full w-full">{routes}</div>;
 };
 
 export default RouterView;

@@ -2,10 +2,10 @@ import { ROUTE } from '@constants/routes';
 import { Input, PasswordInput, Button, Text, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconArrowRight, IconBrandDiscord } from '@tabler/icons';
-import { useLocation } from 'wouter';
+import { useNavigate } from 'react-router-dom';
 
 const LoginView = () => {
-  const [, setLocation] = useLocation();
+  const navigate = useNavigate();
 
   const form = useForm({
     initialValues: {
@@ -55,7 +55,7 @@ const LoginView = () => {
           className="font-medium px-6 hover:bg-discord hover:text-white"
           variant="light"
           radius={100}
-          onClick={() => setLocation(ROUTE.AUTH.REGISTER.PATH)}
+          onClick={() => navigate(ROUTE.AUTH.REGISTER.FULLPATH)}
         >
           Sign up with Discord
         </Button>
