@@ -1,4 +1,7 @@
 import { app, BrowserWindow, protocol, ipcMain } from 'electron';
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+} from 'electron-devtools-installer';
 import isDev from 'electron-is-dev';
 import path, { resolve } from 'path';
 
@@ -16,7 +19,7 @@ protocol.registerSchemesAsPrivileged([
   },
 ]);
 
-const createWindow = () => {
+const createWindow = async () => {
   mainWindow = new BrowserWindow({
     title: 'District V Launcher',
     roundedCorners: true,
@@ -33,13 +36,20 @@ const createWindow = () => {
   });
 
   if (isDev) {
+    try {
+      await installExtension(REACT_DEVELOPER_TOOLS);
+    } catch (e: any) {
+      // eslint-disable-next-line no-console
+      console.error('React Devtools failed to install:', e?.toString());
+    }
+
     mainWindow.loadURL(baseURL);
+
+    // Open the DevTools.
+    mainWindow.webContents.openDevTools({ mode: 'detach' });
   } else {
     mainWindow.loadURL(`file://${path.join(__dirname, '../index.html')}`);
   }
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools({ mode: 'detach' });
 };
 
 // This method will be called when Electron has finished

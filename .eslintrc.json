@@ -57,6 +57,10 @@
       },
       "typescript": {}
     },
-    "import/core-modules": ["electron", "electron-is-dev"]
+    "import/core-modules": [
+      "electron",
+      "electron-is-dev",
+      "electron-devtools-installer"
+    ]
   }
 }
