@@ -35,7 +35,7 @@
     ],
     "import/no-extraneous-dependencies": [
       "error",
-      { "devDependencies": ["**/*.config.ts"] }
+      { "devDependencies": ["**/*.config.ts", "electron", "electron-is-dev"] }
     ],
     "import/prefer-default-export": "off",
     "react/function-component-definition": [

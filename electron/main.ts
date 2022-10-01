@@ -1,6 +1,6 @@
-import { app, BrowserWindow, protocol } from 'electron';
+import { app, BrowserWindow, protocol, ipcMain } from 'electron';
 import isDev from 'electron-is-dev';
-import path from 'path';
+import path, { resolve } from 'path';
 
 const baseURL = 'http://localhost:5173';
 const protocolScheme = 'districtvlauncher';
@@ -10,44 +10,46 @@ let mainWindow: BrowserWindow;
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
-  { scheme: protocolScheme, privileges: { secure: true, standard: true } },
+  {
+    scheme: 'app',
+    privileges: { secure: true, standard: true, bypassCSP: true },
+  },
 ]);
 
 const createWindow = () => {
   mainWindow = new BrowserWindow({
     title: 'District V Launcher',
-    hasShadow: true,
     roundedCorners: true,
     width: 850,
     height: 647,
-    useContentSize: true,
     fullscreen: false,
     frame: false,
     resizable: false,
-    transparent: true,
     darkTheme: true,
+    webPreferences: {
+      contextIsolation: true,
+      preload: path.join(__dirname, './preload.js'),
+    },
   });
 
-  // and load the index.html of the app.
-  // win.loadFile("index.html");
-  mainWindow.loadURL(
-    isDev ? baseURL : `file://${path.join(__dirname, '../dist/index.html')}`
-  );
+  if (isDev) {
+    mainWindow.loadURL(baseURL);
+  } else {
+    mainWindow.loadURL(`file://${path.join(__dirname, '../index.html')}`);
+  }
 
   // Open the DevTools.
-  if (isDev) {
-    mainWindow.webContents.openDevTools({ mode: 'detach' });
-  }
+  mainWindow.webContents.openDevTools({ mode: 'detach' });
 };
-
-if (!primaryInstance) {
-  app.quit();
-}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(createWindow);
+
+if (!primaryInstance) {
+  app.quit();
+}
 
 app.on('second-instance', (_, commandLine) => {
   // event, commandLine, workingDirectory
@@ -60,7 +62,7 @@ app.on('second-instance', (_, commandLine) => {
   const url = commandLine.filter((value) => {
     const arr = value.split(':');
     let val = null;
-    if (arr[0] === 'districtvlauncher') {
+    if (arr[0] === protocolScheme) {
       val = value;
     }
     return val;
@@ -91,14 +93,19 @@ app.on('activate', () => {
 // remove so we can register each time as we run the app.
 app.removeAsDefaultProtocolClient(protocolScheme);
 
-// If we are running a non-packaged version of the app && on windows
-if (isDev) {
+if (isDev && process.platform === 'win32') {
   // Set the path of electron.exe and your app.
   // These two additional parameters are only available on windows.
+  // Setting this is required to get this working in dev mode.
   app.setAsDefaultProtocolClient(protocolScheme, process.execPath, [
-    path.resolve(process.argv[1]),
+    resolve(process.argv[1]),
   ]);
 } else {
+  app.setAsDefaultProtocolClient(protocolScheme);
+}
+
+if (!app.isDefaultProtocolClient(protocolScheme)) {
+  // Define custom protocol handler. Deep linking works on packaged versions of the application!
   app.setAsDefaultProtocolClient(protocolScheme);
 }
 
@@ -116,3 +123,12 @@ if (isDev) {
     });
   }
 }
+
+// IPC EVENTS
+ipcMain.on('minimize-window', () => {
+  mainWindow.minimize();
+});
+
+ipcMain.on('close-window', () => {
+  mainWindow.destroy();
+});

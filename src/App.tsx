@@ -11,12 +11,11 @@ const App = () => {
   const [location, setLocation] = useLocation();
 
   const handleOnMinimize = async () => {
-    // await appWindow.minimize();
+    window.electron.emit('minimize-window');
   };
 
   const handleOnClose = async () => {
-    // await appWindow.close();
-    // await exit();
+    window.electron.emit('close-window');
   };
 
   // const handleOnSystemTray = async () => {
@@ -24,12 +23,14 @@ const App = () => {
   // };
 
   useEffect(() => {
-    if (location === '/') setLocation(ROUTE.AUTH.LOGIN.FULLPATH);
+    if (location === '' || location.includes('index.html'))
+      setLocation(ROUTE.AUTH.LOGIN.FULLPATH);
   }, []);
 
   return (
     <div className="app">
-      <div className="flex justify-end w-full p-2 absolute draggable">
+      <div className="flex justify-end w-full p-2 absolute">
+        {location}
         <Group className="bg-zinc-800 p-1 rounded-lg" spacing="xs">
           {/* Minimize Button */}
           <ActionIcon
