@@ -55,7 +55,7 @@ const LoginView = () => {
           className="font-medium px-6 hover:bg-discord hover:text-white"
           variant="light"
           radius={100}
-          onClick={() => navigate(ROUTE.AUTH.REGISTER.FULLPATH)}
+          onClick={() => navigate(ROUTE.AUTH.REGISTER)}
         >
           Sign up with Discord
         </Button>

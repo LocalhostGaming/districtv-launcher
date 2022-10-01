@@ -12,7 +12,9 @@ const RegisterView = () => {
   const [registerState] = useState<'discord' | 'register'>('discord');
   const isDiscord = useMemo(() => registerState === 'discord', [registerState]);
 
-  const handleOnCancel = () => {};
+  const handleOnCancel = () => {
+    navigate(ROUTE.AUTH.LOGIN);
+  };
 
   return (
     <div className="w-[340px]">
@@ -24,7 +26,7 @@ const RegisterView = () => {
 
       <DiscordLoading
         show={isDiscord}
-        onBack={() => navigate(ROUTE.AUTH.LOGIN.FULLPATH)}
+        onBack={() => navigate(ROUTE.AUTH.LOGIN)}
       />
       <RegisterForm show={!isDiscord} onCancel={handleOnCancel} />
     </div>
