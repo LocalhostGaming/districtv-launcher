@@ -26,6 +26,7 @@ const createWindow = async () => {
     frame: false,
     resizable: false,
     darkTheme: true,
+    backgroundColor: '#2c2e33',
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, './preload.js'),
