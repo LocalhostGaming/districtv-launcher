@@ -6,8 +6,8 @@ import '@styles/app.css';
 const App = () => {
   return (
     <div className="app">
-      <div className="flex justify-end w-full p-2 absolute">
-        <ControlButtons />
+      <div className="flex justify-end w-full p-2 absolute draggable">
+        <ControlButtons className="not-draggable" />
       </div>
 
       <RouterView />

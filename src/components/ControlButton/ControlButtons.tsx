@@ -1,9 +1,14 @@
 import { ActionIcon, Group } from '@mantine/core';
 import { IconWindowMinimize, IconX } from '@tabler/icons';
+import classNames from 'classnames';
 
 import styles from './ControlButtons.module.css';
 
-const ControlButtons = () => {
+interface Props {
+  className?: string;
+}
+
+const ControlButtons = ({ className }: Props) => {
   const handleOnMinimize = async () => {
     window.electron.emit('minimize-window');
   };
@@ -13,7 +18,10 @@ const ControlButtons = () => {
   };
 
   return (
-    <Group className={styles['control-buttons']} spacing="xs">
+    <Group
+      className={classNames(className, styles['control-buttons'])}
+      spacing="xs"
+    >
       {/* Minimize Button */}
       <ActionIcon
         className={styles['control-buttons__button']}
