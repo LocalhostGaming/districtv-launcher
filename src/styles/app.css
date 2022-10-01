@@ -1,11 +1,5 @@
 .app {
-  @apply rounded-xl;
-  box-shadow: inset 0px 0px 0px 4px #25262b;
   background: #2c2e33;
   height: 100vh;
   width: 100vw;
-}
-
-.app .light-shadow {
-  box-shadow: inset 0px 0px 0px 4px #c0c2c9;
 }

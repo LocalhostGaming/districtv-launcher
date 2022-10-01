@@ -1,0 +1,7 @@
+.control-buttons {
+  @apply bg-zinc-800 p-1 rounded-lg;
+
+  &__button {
+    @apply hover:bg-zinc-700;
+  }
+}

@@ -5,6 +5,15 @@
 /* @tailwind components; */
 @tailwind utilities;
 
+@layer {
+  .draggable {
+    -webkit-app-region: drag;
+  }
+  .not-draggable {
+    -webkit-app-region: no-drag;
+  }
+}
+
 :root,
 body {
   background: transparent !important;
