@@ -8,24 +8,20 @@ import { RouteLayout } from './components/RouteLayout';
 
 export const config: RouteObject[] = [
   {
-    path: ROUTE.AUTH.PATH,
-    children: [
-      {
-        path: ROUTE.AUTH.LOGIN.FULLPATH,
-        element: (
-          <RouteLayout>
-            <LoginPage />
-          </RouteLayout>
-        ),
-      },
-      {
-        path: ROUTE.AUTH.REGISTER.FULLPATH,
-        element: (
-          <RouteLayout>
-            <RegisterPage />
-          </RouteLayout>
-        ),
-      },
-    ],
+    path: ROUTE.AUTH.LOGIN,
+    element: (
+      <RouteLayout>
+        <LoginPage />
+      </RouteLayout>
+    ),
+    index: true,
+  },
+  {
+    path: ROUTE.AUTH.REGISTER,
+    element: (
+      <RouteLayout>
+        <RegisterPage />
+      </RouteLayout>
+    ),
   },
 ];
