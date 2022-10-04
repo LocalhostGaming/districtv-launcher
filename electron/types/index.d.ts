@@ -1,6 +1,12 @@
+type AllowedEmitEventName = 'minimize-window' | 'close-window';
+type AllowedOnEventName = 'protocol-params';
+
 interface Window {
   electron: {
-    emit: (channel: string, ...arg: any) => void;
-    on: (channel: string, listener: (...args: any[]) => void) => void;
+    emit: (eventName: AllowedEmitEventName, ...arg: any) => void;
+    on: (
+      eventName: AllowedOnEventName,
+      listener: (...args: any[]) => void
+    ) => void;
   };
 }

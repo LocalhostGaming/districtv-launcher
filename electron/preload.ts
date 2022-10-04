@@ -1,20 +1,19 @@
 import { contextBridge, ipcRenderer } from 'electron';
-
-const validChannels = ['minimize-window', 'close-window'];
+import { ALLOWED_EMIT_EVENT_NAME, ALLOWED_ON_EVENT_NAME } from './constants';
 
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
 contextBridge.exposeInMainWorld('electron', {
-  emit: (channel: string, data: any) => {
+  emit: (eventName: string, data: any) => {
     // whitelist channels
-    if (validChannels.includes(channel)) {
-      ipcRenderer.send(channel, data);
+    if (ALLOWED_EMIT_EVENT_NAME.includes(eventName)) {
+      ipcRenderer.send(eventName, data);
     }
   },
-  on: (channel: string, func: (...args: any[]) => void) => {
-    if (validChannels.includes(channel)) {
+  on: (eventName: string, func: (...args: any[]) => void) => {
+    if (ALLOWED_ON_EVENT_NAME.includes(eventName)) {
       // Deliberately strip event as it includes `sender`
-      ipcRenderer.on(channel, (_, ...args) => func(...args));
+      ipcRenderer.on(eventName, (_, ...args) => func(...args));
     }
   },
 });
