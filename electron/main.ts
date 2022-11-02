@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import isDev from 'electron-is-dev';
 import path, { resolve } from 'path';
 import { BASE_URL, PROTOCOL } from './constants';
@@ -58,14 +58,6 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
-
 if (!primaryInstance) {
   app.quit();
 }
@@ -80,6 +72,14 @@ app.on('second-instance', (_, urls) => {
 
   if (allowedURLs.length > 0) {
     mainWindow.webContents.send('protocol-params', allowedURLs);
+  }
+});
+
+app.on('activate', () => {
+  // On macOS it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  if (mainWindow === null) {
+    createWindow();
   }
 });
 
@@ -119,4 +119,10 @@ ipcMain.on('minimize-window', () => {
 
 ipcMain.on('close-window', () => {
   mainWindow.destroy();
+});
+
+ipcMain.on('discord-auth', (_, url) => {
+  if (url) {
+    shell.openExternal(url);
+  }
 });

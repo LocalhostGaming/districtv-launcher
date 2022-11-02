@@ -10,11 +10,9 @@ import App from './App';
 import '@styles/main.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </MantineProvider>
-  </React.StrictMode>
+  <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </MantineProvider>
 );

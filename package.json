@@ -68,8 +68,8 @@
     "wait-on": "^6.0.1"
   },
   "lint-staged": {
-    "*.{js,css,md,vue,json,ts,tsx,jsx}": "yarn format",
-    "*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}": "yarn lint"
+    "*.{js,css,md,json,ts}": "yarn format",
+    "*.{js,cjs,mjs,ts,cts,mts}": "yarn lint"
   },
   "build": {
     "appId": "com.localhostgaming.districtvlauncher",
