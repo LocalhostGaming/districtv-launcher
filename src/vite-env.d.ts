@@ -11,8 +11,18 @@ declare module '*.svg' {
   export default src;
 }
 
-type AllowedEmitEventName = 'minimize-window' | 'close-window' | 'discord-auth';
-type AllowedOnEventName = 'protocol-params';
+enum AllowedOnEvents {
+  'discord',
+}
+
+enum AllowedEmitEvents {
+  'minimize-window',
+  'close-window',
+  'discord-auth',
+}
+
+type AllowedEmitEventName = keyof typeof AllowedEmitEvents;
+type AllowedOnEventName = keyof typeof AllowedOnEvents;
 
 interface Window {
   electron: {

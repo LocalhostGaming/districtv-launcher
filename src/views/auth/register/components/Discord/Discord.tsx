@@ -50,7 +50,7 @@ const Discord = ({ show, onBack }: Props) => {
       setState(STATE.AUTH);
     }
 
-    window.electron.on('protocol-params', (params) => {
+    window.electron.on('discord', (params) => {
       handleDiscordRedirect(params?.[0]);
     });
   }, []);
