@@ -1,63 +1,27 @@
 import { Button, Text, UnstyledButton, useMantineTheme } from '@mantine/core';
 import { IconArrowLeft } from '@tabler/icons';
-import { useEffect, useState } from 'react';
+import { DiscordAuthState } from '../../enums';
 
 interface Props {
   show?: boolean;
   onBack?: () => void;
+  discordError?: string;
+  state: DiscordAuthState;
+  onRetry: () => void;
 }
 
-enum STATE {
-  INIT,
-  AUTH,
-  VERIFY,
-}
-
-const Discord = ({ show, onBack }: Props) => {
+const Discord = ({ show, onBack, discordError, state, onRetry }: Props) => {
   if (show === false) return null;
 
   const { colors } = useMantineTheme();
-
-  const [state, setState] = useState<STATE>(STATE.INIT);
-  const [error, setError] = useState<string>();
 
   const handleOnBack = () => {
     if (onBack) onBack();
   };
 
-  const requestDiscordAuthorization = () => {
-    window.electron.emit(
-      'discord-auth',
-      import.meta.env.VITE_APP_DISCORD_AUTH_URL
-    );
-  };
-
-  const handleDiscordRedirect = (urlString: string) => {
-    setState(STATE.VERIFY);
-
-    const url = new URL(urlString);
-
-    if (!url) setError('Invalid Authentication Code');
-
-    const [, code] = url.search.split('=');
-
-    if (!code) setError('Invalid Authentication Code');
-  };
-
-  useEffect(() => {
-    if (state === STATE.INIT) {
-      requestDiscordAuthorization();
-      setState(STATE.AUTH);
-    }
-
-    window.electron.on('discord', (params) => {
-      handleDiscordRedirect(params?.[0]);
-    });
-  }, []);
-
   return (
     <div className="flex flex-col place-content-center text-center">
-      {!error ? (
+      {!discordError ? (
         <>
           <div className="mb-2">
             <svg
@@ -86,17 +50,18 @@ const Discord = ({ show, onBack }: Props) => {
           </div>
 
           <Text size="sm" weight={500}>
-            {state === STATE.AUTH && 'Waiting for Discord'}
-            {state === STATE.VERIFY && 'Verifying Discord Account'}
+            {state === DiscordAuthState.Authenticating && 'Waiting for Discord'}
+            {state === DiscordAuthState.Verifying &&
+              'Verifying Discord Account'}
           </Text>
         </>
       ) : (
         <div>
           <Text size="sm" weight={500}>
-            {error}
+            {discordError}
             <UnstyledButton
               className="font-semibold text-discord cursor-pointer hover:text-indigo-300 ml-2 text-sm"
-              onClick={() => requestDiscordAuthorization()}
+              onClick={() => onRetry()}
             >
               Try Again
             </UnstyledButton>

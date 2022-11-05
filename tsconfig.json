@@ -29,7 +29,8 @@
       "@types/*": ["./src/types/*"],
       "@views/*": ["./src/views/*"],
       "@api/*": ["./src/api/*"],
-      "@router/*": ["./src/router/*"]
+      "@router/*": ["./src/router/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
 

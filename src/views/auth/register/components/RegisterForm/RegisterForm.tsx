@@ -1,19 +1,25 @@
 import { Button, Container } from '@mantine/core';
+import { useDiscordService } from '@service/discord';
 import { IconArrowRight } from '@tabler/icons';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { PasswordForm } from './Forms/PasswordForm';
 import { UserForm } from './Forms/UserForm';
 
 interface Props {
   show?: boolean;
   onCancel?: () => void;
+  discordToken?: string;
 }
 
-const RegisterForm = ({ show, onCancel }: Props) => {
+const { me: meService } = useDiscordService();
+
+const RegisterForm = ({ show, onCancel, discordToken }: Props) => {
   if (show === false) return null;
 
   const [formState, setFormState] = useState<'user' | 'password'>('user');
   const isUserForm = useMemo(() => formState === 'user', [formState]);
+
+  const { data: meData } = meService({ discordToken });
 
   const handleOnBack = () => {
     if (isUserForm) {
@@ -35,6 +41,11 @@ const RegisterForm = ({ show, onCancel }: Props) => {
 
     // submit form
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log('ME', meData);
+  }, [meData]);
 
   return (
     <Container>

@@ -13,23 +13,42 @@ declare module '*.svg' {
 
 enum AllowedOnEvents {
   'discord',
+  'getConfig:value',
 }
 
 enum AllowedEmitEvents {
   'minimize-window',
   'close-window',
   'discord-auth',
+  'setConfig',
+  'getConfig',
+  'deleteConfig',
+  'clearConfig',
 }
 
 type AllowedEmitEventName = keyof typeof AllowedEmitEvents;
 type AllowedOnEventName = keyof typeof AllowedOnEvents;
 
-interface Window {
-  electron: {
-    emit: (eventName: AllowedEmitEventName, data?: any) => void;
-    on: (
-      eventName: AllowedOnEventName,
-      listener: (...args: any[]) => void
-    ) => void;
-  };
+export {};
+declare global {
+  interface Window {
+    electron: {
+      emit: (eventName: AllowedEmitEventName, data?: any) => void;
+      on: (
+        eventName: AllowedOnEventName,
+        listener: (...args: any[]) => void
+      ) => void;
+      removeAllListeners: (eventName: string) => void;
+      removeListener: (
+        eventName: string,
+        func: (...args: any[]) => void
+      ) => void;
+    };
+    storage: {
+      get: (key: string) => any;
+      set: (key: string, value: any) => void;
+      delete: (key: string) => void;
+      clear: () => void;
+    };
+  }
 }

@@ -16,6 +16,7 @@ export const aliases = {
   '@views': resolve(__dirname, './src/views'),
   '@api': resolve(__dirname, './src/api'),
   '@router': resolve(__dirname, './src/router'),
+  '@utils': resolve(__dirname, './src/utils'),
 };
 
 // https://vitejs.dev/config/
