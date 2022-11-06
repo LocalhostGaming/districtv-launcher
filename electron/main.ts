@@ -1,8 +1,11 @@
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import isDev from 'electron-is-dev';
 import path, { resolve } from 'path';
+import Store from 'electron-store';
 import { BASE_URL, PROTOCOL } from './constants';
 import { getAllowedUrls } from './helpers';
+
+const store = new Store();
 
 const primaryInstance = app.requestSingleInstanceLock();
 
@@ -71,7 +74,10 @@ app.on('second-instance', (_, urls) => {
   const allowedURLs = getAllowedUrls(urls);
 
   if (allowedURLs.length > 0) {
-    mainWindow.webContents.send('protocol-params', allowedURLs);
+    allowedURLs.forEach((allowedUrl) => {
+      const url = new URL(allowedUrl);
+      mainWindow.webContents.send(url.host, allowedURLs);
+    });
   }
 });
 
@@ -125,4 +131,25 @@ ipcMain.on('discord-auth', (_, url) => {
   if (url) {
     shell.openExternal(url);
   }
+});
+
+// Storage Events
+ipcMain.on('storage:set', (_, key, value) => {
+  if (!key) throw new Error("Can't set on storage, key is required.");
+
+  store.set(key, value);
+});
+
+ipcMain.handle('storage:get', (_, key) => {
+  return store.get(key);
+});
+
+ipcMain.on('storage:delete', (_, key) => {
+  if (!key) throw new Error("Can't delete on storage, key is required.");
+
+  store.delete(key);
+});
+
+ipcMain.on('storage:clear', () => {
+  store.clear();
 });

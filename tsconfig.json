@@ -24,12 +24,13 @@
       "@helpers/*": ["./src/helpers/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@service/*": ["./src/service/*"],
+      "@services/*": ["src/services/*"],
       "@styles/*": ["./src/styles/*"],
       "@types/*": ["./src/types/*"],
       "@views/*": ["./src/views/*"],
       "@api/*": ["./src/api/*"],
-      "@router/*": ["./src/router/*"]
+      "@router/*": ["./src/router/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
 
