@@ -3,21 +3,22 @@ import { useNavigate } from 'react-router-dom';
 
 import { Container, Title } from '@mantine/core';
 import { ROUTE } from '@constants/routes';
-import { RegisterState } from './constants/state';
+
+import { RegistrationState } from './constants/registrationState';
 import { DiscordAuthentication } from './components/DiscordAuthentication';
 import { RegisterForm } from './components/RegisterForm';
 
 const RegisterContainer = () => {
   const navigate = useNavigate();
 
-  const [registerState, setRegisterState] = useState<RegisterState>(
-    RegisterState.DISCORD
+  const [registrationState, setRegistrationState] = useState<RegistrationState>(
+    RegistrationState.DiscordAuth
   );
   const [discordToken, setDiscordToken] = useState<string | undefined>();
 
   const isAuthenticateDiscord = useMemo(
-    () => registerState === RegisterState.DISCORD,
-    [registerState]
+    () => registrationState === RegistrationState.DiscordAuth,
+    [registrationState]
   );
 
   const handleOnCancel = () => {
@@ -26,7 +27,7 @@ const RegisterContainer = () => {
 
   const handleOnVerificationSuccess = (tokens: string) => {
     setDiscordToken(tokens);
-    setRegisterState(RegisterState.REGISTER);
+    setRegistrationState(RegistrationState.Register);
   };
 
   return (
@@ -45,11 +46,9 @@ const RegisterContainer = () => {
           />
         )}
 
-        <RegisterForm
-          show={!isAuthenticateDiscord}
-          onCancel={handleOnCancel}
-          discordToken={discordToken}
-        />
+        {!isAuthenticateDiscord && (
+          <RegisterForm onCancel={handleOnCancel} discordToken={discordToken} />
+        )}
       </div>
     </Container>
   );

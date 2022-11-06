@@ -1,21 +1,20 @@
-import { Button, Container } from '@mantine/core';
-import { useDiscordService } from '@service/discord';
-import { IconArrowRight } from '@tabler/icons';
 import { useEffect, useMemo, useState } from 'react';
+
+import { Button, Container } from '@mantine/core';
+import { useDiscordService } from '@services/discord';
+import { IconArrowRight } from '@tabler/icons';
+
 import { PasswordForm } from './Forms/PasswordForm';
 import { UserForm } from './Forms/UserForm';
 
 interface Props {
-  show?: boolean;
   onCancel?: () => void;
   discordToken?: string;
 }
 
 const { me: meService } = useDiscordService();
 
-const RegisterForm = ({ show, onCancel, discordToken }: Props) => {
-  if (show === false) return null;
-
+const RegisterForm = ({ onCancel, discordToken }: Props) => {
   const [formState, setFormState] = useState<'user' | 'password'>('user');
   const isUserForm = useMemo(() => formState === 'user', [formState]);
 

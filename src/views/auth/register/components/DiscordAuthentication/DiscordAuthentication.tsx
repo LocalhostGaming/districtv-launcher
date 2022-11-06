@@ -32,7 +32,7 @@ const DiscordAuthentication = ({ onBack, onSuccess }: Props) => {
 
       setAuthState(DiscordAuthState.Authenticating);
 
-      if (data?.url) {
+      if (data.url) {
         window.electron.emit('discord-auth', data.url);
       }
     } catch (e: unknown) {

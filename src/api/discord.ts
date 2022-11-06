@@ -1,16 +1,24 @@
 import axios from '@utils/axios';
 import { ENDPOINTS } from '@constants/endpoints';
 import jwt from '@utils/jwt';
+import {
+  IDiscordAuthUrl,
+  IDiscordMe,
+  IDiscordMePayload,
+} from 'src/interfaces/IDiscord';
 
 const { INTEGRATION } = ENDPOINTS;
 
 export const useDiscordApi = () => {
   const getAuthorizationUrl = async () => {
-    const response = await axios.get(INTEGRATION.DISCORD.AUTHORIZATION_URL, {
-      params: {
-        intent: 'launcher',
-      },
-    });
+    const response = await axios.get<IDiscordAuthUrl>(
+      INTEGRATION.DISCORD.AUTHORIZATION_URL,
+      {
+        params: {
+          intent: 'launcher',
+        },
+      }
+    );
 
     return response.data;
   };
@@ -29,15 +37,11 @@ export const useDiscordApi = () => {
     return response.data;
   };
 
-  const me = async ({
-    accessToken,
-    discordToken,
-  }: {
-    accessToken?: string;
-    discordToken?: string;
-  }) => {
+  const me = async (payload: IDiscordMePayload) => {
+    const { accessToken, discordToken } = payload;
+
     if (accessToken) {
-      const response = await axios.get(INTEGRATION.DISCORD.ME, {
+      const response = await axios.get<IDiscordMe>(INTEGRATION.DISCORD.ME, {
         params: {
           access_token: accessToken,
         },
@@ -50,7 +54,7 @@ export const useDiscordApi = () => {
 
       if (!tokens?.access_token) return undefined;
 
-      const response = await axios.get(INTEGRATION.DISCORD.ME, {
+      const response = await axios.get<IDiscordMe>(INTEGRATION.DISCORD.ME, {
         params: {
           access_token: tokens.access_token,
         },
