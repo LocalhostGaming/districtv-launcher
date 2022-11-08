@@ -8,7 +8,7 @@ const axios = Axios.create({
 axios.interceptors.request.use(
   async (config) => {
     try {
-      const accessToken = window.storage.get('access_token');
+      const accessToken = await window.electron.storage.get('access_token');
 
       // eslint-disable-next-line no-param-reassign
       config.headers = {

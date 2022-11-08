@@ -1,19 +1,19 @@
+import { LoginType } from '@interface/auth';
 import { Button, Input, PasswordInput, Text } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
 import { IconArrowRight } from '@tabler/icons';
 
 interface Props {
-  form: UseFormReturnType<{
-    username: string;
-    password: string;
-  }>;
+  form: UseFormReturnType<LoginType>;
+  onSubmit: (values: LoginType) => void;
 }
 
-const LoginForm = ({ form }: Props) => {
+const LoginForm = ({ form, onSubmit }: Props) => {
   return (
-    <form>
+    <form onSubmit={form.onSubmit(onSubmit)}>
       <div className="flex flex-col gap-2">
         <Input placeholder="username" {...form.getInputProps('username')} />
+
         <PasswordInput
           placeholder="password"
           {...form.getInputProps('password')}

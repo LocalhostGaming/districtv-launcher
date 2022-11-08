@@ -4,6 +4,12 @@ import axios from '@utils/axios';
 import { AxiosResponse } from 'axios';
 
 export const useUserApi = () => {
+  const me = async () => {
+    const response = await axios.get<UserType>(`${ENDPOINTS.USER}/me`);
+
+    return response.data;
+  };
+
   const createUser = async (payload: UserCreateType, discordTokens: string) => {
     const response = await axios.post<UserCreateType, AxiosResponse<UserType>>(
       ENDPOINTS.USER,
@@ -29,5 +35,6 @@ export const useUserApi = () => {
   return {
     createUser,
     checkUsername,
+    me,
   };
 };

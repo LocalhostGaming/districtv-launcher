@@ -1,26 +1,15 @@
 import { ReactNode } from 'react';
 
-import { Layout } from '@constants/layout';
 import DefaultLayout from '@layouts/Default';
-import MainLayout from '@layouts/Main';
+import DashboardLayout from '@layouts/Dashboard';
 
+export type Layouts = 'dashboard' | 'default';
 interface Props {
-  layout?: Layout;
+  layout?: Layouts;
   children: ReactNode;
 }
 
-const LayoutValue = Object.values(Layout);
-
-export const RouteLayout = ({ children, layout }: Props) => {
-  // Invalid Layout
-  if (layout && !LayoutValue.includes(layout)) {
-    throw Error(
-      `Invalid '${layout}' layout. Layout should be one of [${LayoutValue.join(
-        ', '
-      )}]`
-    );
-  }
-
+export const RouteLayout = ({ children, layout = 'default' }: Props) => {
   /**
    *
    * Make a condition if the "currentPath" is equals to *name of your layout*
@@ -33,8 +22,8 @@ export const RouteLayout = ({ children, layout }: Props) => {
 
   // ===== ADD NEW LAYOUTS HERE ===== //
   switch (layout) {
-    case Layout.Main:
-      return <MainLayout>{children}</MainLayout>;
+    case 'dashboard':
+      return <DashboardLayout>{children}</DashboardLayout>;
     default:
       return <DefaultLayout>{children}</DefaultLayout>;
   }

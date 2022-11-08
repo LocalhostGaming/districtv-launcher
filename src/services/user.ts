@@ -2,10 +2,17 @@ import { useUserApi } from '@api/user';
 import { UserCreateType } from '@interface/user';
 import { useMutation, useQuery } from 'react-query';
 
-const { createUser: createUserApi, checkUsername: checkUsernameApi } =
-  useUserApi();
+const {
+  createUser: createUserApi,
+  checkUsername: checkUsernameApi,
+  me: meApi,
+} = useUserApi();
 
 export const useUserService = () => {
+  const me = () => {
+    return useQuery(['user-me'], () => meApi());
+  };
+
   const createUser = () => {
     return useMutation(([payload, discordTokens]: [UserCreateType, string]) =>
       createUserApi(payload, discordTokens)
@@ -25,5 +32,6 @@ export const useUserService = () => {
   return {
     createUser,
     checkUsername,
+    me,
   };
 };

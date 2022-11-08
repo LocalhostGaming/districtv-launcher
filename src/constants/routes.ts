@@ -3,4 +3,7 @@ export const ROUTE = {
     LOGIN: '/auth/login',
     REGISTER: '/auth/register',
   },
+  DASHBOARD: {
+    PLAY: '/dashboard/play',
+  },
 };
