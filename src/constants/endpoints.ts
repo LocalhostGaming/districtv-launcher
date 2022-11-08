@@ -1,5 +1,8 @@
 export const ENDPOINTS = {
   USER: '/users',
+  AUTH: {
+    LOGIN: '/auth/login',
+  },
   INTEGRATION: {
     DISCORD: {
       AUTHORIZATION_URL: '/integration/discord/authorization-url',
