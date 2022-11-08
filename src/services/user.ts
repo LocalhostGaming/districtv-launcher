@@ -1,6 +1,6 @@
 import { useUserApi } from '@api/user';
-import { UserCreateType } from '@interface/user';
-import { useMutation, useQuery } from 'react-query';
+import { UserCreateType, UserType } from '@interface/user';
+import { useMutation, useQuery, UseQueryOptions } from 'react-query';
 
 const {
   createUser: createUserApi,
@@ -9,8 +9,8 @@ const {
 } = useUserApi();
 
 export const useUserService = () => {
-  const me = () => {
-    return useQuery(['user-me'], () => meApi());
+  const me = (options?: UseQueryOptions<UserType>) => {
+    return useQuery<UserType>(['user-me'], () => meApi(), options);
   };
 
   const createUser = () => {

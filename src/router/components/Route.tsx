@@ -1,6 +1,6 @@
 import { ROUTE } from '@constants/routes';
 import { useUserService } from '@services/user';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const { me: getUserDetails } = useUserService();
@@ -13,7 +13,17 @@ interface Props {
 export const Route = ({ children, isPrivate }: Props): JSX.Element | null => {
   const navigate = useNavigate();
 
-  const { data: user } = getUserDetails();
+  const [accessToken, setAccessToken] = useState<string>();
+
+  const { data: user } = getUserDetails({
+    enabled: !!accessToken,
+  });
+
+  useEffect(() => {
+    window.electron.storage.get('access_token').then((value: string) => {
+      setAccessToken(value);
+    });
+  }, []);
 
   useEffect(() => {
     // If route is private but user is not logged in
