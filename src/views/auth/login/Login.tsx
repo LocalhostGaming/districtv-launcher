@@ -5,16 +5,17 @@ import { useForm, zodResolver } from '@mantine/form';
 import { IconBrandDiscord } from '@tabler/icons';
 import { ROUTE } from '@constants/routes';
 import { LoginType } from '@interface/auth';
-import { useAuthApi } from '@api/auth';
 import { AxiosError } from 'axios';
 import { showNotification } from '@mantine/notifications';
 import { LoginSchema } from '@schema/auth';
+import { useAuthService } from '@services/auth';
 import { LoginForm } from './components/LoginForm';
 
-const { login } = useAuthApi();
+const { login } = useAuthService();
 
 const Login = () => {
   const navigate = useNavigate();
+
   const form = useForm({
     validate: zodResolver(LoginSchema),
     initialValues: {
@@ -23,29 +24,31 @@ const Login = () => {
     },
   });
 
+  const loginMutation = login();
   const handleOnSubmit = async (values: LoginType) => {
-    try {
-      const response = await login(values);
-      window.electron.storage.set('access_token', response.access_token);
+    loginMutation.mutateAsync(values, {
+      onSuccess: (response) => {
+        window.electron.storage.set('access_token', response.access_token);
+        navigate(ROUTE.DASHBOARD.PLAY);
+      },
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          showNotification({
+            color: 'red',
+            message:
+              error.response?.data.message ||
+              error.message ||
+              'Something went wrong',
+          });
+          return;
+        }
 
-      navigate(ROUTE.DASHBOARD.PLAY);
-    } catch (error) {
-      if (error instanceof AxiosError) {
         showNotification({
           color: 'red',
-          message:
-            error.response?.data.message ||
-            error.message ||
-            'Something went wrong',
+          message: 'Something went wrong',
         });
-        return;
-      }
-
-      showNotification({
-        color: 'red',
-        message: 'Something went wrong',
-      });
-    }
+      },
+    });
   };
 
   return (
