@@ -12,7 +12,12 @@ export const useAuthApi = () => {
     return response.data;
   };
 
+  const logout = () => {
+    window.electron.storage.delete('access_token');
+  };
+
   return {
     login,
+    logout,
   };
 };
