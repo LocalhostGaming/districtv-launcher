@@ -1,5 +1,5 @@
 import { LoginType } from '@interface/auth';
-import { Button, Input, PasswordInput, Text } from '@mantine/core';
+import { Button, PasswordInput, Text, TextInput } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
 import { IconArrowRight } from '@tabler/icons';
 
@@ -12,7 +12,7 @@ const LoginForm = ({ form, onSubmit }: Props) => {
   return (
     <form onSubmit={form.onSubmit(onSubmit)}>
       <div className="flex flex-col gap-2">
-        <Input placeholder="username" {...form.getInputProps('username')} />
+        <TextInput placeholder="username" {...form.getInputProps('username')} />
 
         <PasswordInput
           placeholder="password"
