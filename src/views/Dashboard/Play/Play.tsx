@@ -1,5 +1,9 @@
-import { Container } from '@mantine/core';
+import { Button, Container } from '@mantine/core';
 
 export const Play = () => {
-  return <Container>Play Page</Container>;
+  return (
+    <Container>
+      <Button variant="filled">PLAY</Button>
+    </Container>
+  );
 };
