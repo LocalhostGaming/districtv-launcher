@@ -30,7 +30,9 @@
       "@views/*": ["./src/views/*"],
       "@api/*": ["./src/api/*"],
       "@router/*": ["./src/router/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@schema/*": ["./src/schema/*"],
+      "@interface/*": ["src/interface/*"]
     }
   },
 

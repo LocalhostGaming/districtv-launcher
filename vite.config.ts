@@ -13,10 +13,12 @@ export const aliases = {
   '@services': resolve(__dirname, './src/services'),
   '@styles': resolve(__dirname, './src/styles'),
   '@types': resolve(__dirname, './src/types'),
+  '@interface': resolve(__dirname, './src/interface'),
   '@views': resolve(__dirname, './src/views'),
   '@api': resolve(__dirname, './src/api'),
   '@router': resolve(__dirname, './src/router'),
   '@utils': resolve(__dirname, './src/utils'),
+  '@schema': resolve(__dirname, './src/schema'),
 };
 
 // https://vitejs.dev/config/

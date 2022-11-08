@@ -29,7 +29,21 @@ const theme: MantineThemeOverride = {
       defaultProps: {
         size: 'lg',
       },
-      classNames: { input: 'rounded-lg font-medium text-[15px]' },
+      classNames: {
+        input: 'rounded-lg font-medium text-[15px]',
+        label: 'text-sm',
+        error: 'text-xs',
+      },
+    },
+    TextInput: {
+      defaultProps: {
+        size: 'lg',
+      },
+      classNames: {
+        input: 'rounded-lg font-medium text-[15px]',
+        label: 'text-sm',
+        error: 'text-xs',
+      },
     },
     PasswordInput: {
       defaultProps: {
@@ -37,6 +51,8 @@ const theme: MantineThemeOverride = {
       },
       classNames: {
         innerInput: 'rounded-lg font-medium text-[15px]',
+        label: 'text-sm',
+        error: 'text-xs',
       },
     },
     Button: {

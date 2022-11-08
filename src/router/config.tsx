@@ -3,8 +3,8 @@ import { RouteObject } from 'react-router-dom';
 import { ROUTE } from '@constants/routes';
 
 // Views
-import { LoginPage } from '@views/auth/login';
-import { RegisterPage } from '@views/auth/register';
+import { LoginPage } from '@views/Auth/Login';
+import { RegisterPage } from '@views/Auth/Register';
 
 import { RouteLayout } from './components/RouteLayout';
 

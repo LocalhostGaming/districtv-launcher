@@ -1,6 +1,6 @@
 import { useDiscordApi } from '@api/discord';
 import { useQuery } from 'react-query';
-import { IDiscordMe, IDiscordMePayload } from 'src/interfaces/IDiscord';
+import { IDiscordMe, IDiscordMePayload } from 'src/interface/IDiscord';
 
 const { me: meApi } = useDiscordApi();
 

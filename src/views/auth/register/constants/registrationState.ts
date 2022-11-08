@@ -1,4 +1,4 @@
 export enum RegistrationState {
   DiscordAuth,
-  Register,
+  RegistrationForm,
 }

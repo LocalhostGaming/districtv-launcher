@@ -5,7 +5,7 @@ import {
   IDiscordAuthUrl,
   IDiscordMe,
   IDiscordMePayload,
-} from 'src/interfaces/IDiscord';
+} from 'src/interface/IDiscord';
 
 const { INTEGRATION } = ENDPOINTS;
 

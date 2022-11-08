@@ -1,5 +1,6 @@
 /// <reference types="vite/client" />
 
+declare module '@types/user';
 declare module '*.svg' {
   import * as React from 'react';
 
