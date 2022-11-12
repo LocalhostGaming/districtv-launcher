@@ -1,11 +1,9 @@
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import isDev from 'electron-is-dev';
 import path, { resolve } from 'path';
-import Store from 'electron-store';
 import { BASE_URL, PROTOCOL } from './constants';
 import { getAllowedUrls } from './helpers';
-
-const store = new Store();
+import storage from './utils/storage';
 
 const primaryInstance = app.requestSingleInstanceLock();
 
@@ -31,7 +29,6 @@ const createWindow = async () => {
     darkTheme: true,
     backgroundColor: '#2c2e33',
     webPreferences: {
-      contextIsolation: true,
       preload: path.join(__dirname, './preload.js'),
     },
   });
@@ -134,22 +131,47 @@ ipcMain.on('discord-auth', (_, url) => {
 });
 
 // Storage Events
-ipcMain.on('storage:set', (_, key, value) => {
+
+const tempPath = app.getPath('temp');
+const filePath = path.join(tempPath, 'districtv.json');
+
+ipcMain.on('storage:set', async (_, key, value) => {
   if (!key) throw new Error("Can't set on storage, key is required.");
 
-  store.set(key, value);
+  const values = await storage.read(filePath);
+
+  if (values) {
+    storage.write(filePath, {
+      ...values,
+      [key]: value,
+    });
+    return;
+  }
+  storage.write(filePath, {
+    [key]: value,
+  });
 });
 
-ipcMain.handle('storage:get', (_, key) => {
-  return store.get(key);
+ipcMain.handle('storage:get', async (_, key) => {
+  const values = await storage.read(filePath);
+
+  if (!values || !values?.[key]) return undefined;
+
+  return values[key];
 });
 
-ipcMain.on('storage:delete', (_, key) => {
+ipcMain.on('storage:delete', async (_, key) => {
   if (!key) throw new Error("Can't delete on storage, key is required.");
 
-  store.delete(key);
+  const values = await storage.read(filePath);
+
+  if (!values || !values?.[key]) return;
+
+  delete values[key];
+
+  storage.write(filePath, values);
 });
 
 ipcMain.on('storage:clear', () => {
-  store.clear();
+  storage.remove(filePath);
 });

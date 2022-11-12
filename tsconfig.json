@@ -19,7 +19,7 @@
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["./src/assets/*"],
-      "@components/*": ["./src/components/*"],
+      "@components/*": ["src/components/*"],
       "@constants/*": ["./src/constants/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@hooks/*": ["./src/hooks/*"],
@@ -38,6 +38,7 @@
 
   "include": [
     "vite.config.ts",
+    "electron.vite.config.ts",
     "./src/**/*.ts",
     "./src/**/*.css",
     "./src/**/*.tsx",
